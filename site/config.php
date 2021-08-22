@@ -124,8 +124,13 @@ if (getenv("PW_INSTALLED") !== false) {
  * Installer: HTTP Hosts Whitelist
  * 
  */
-$config->httpHosts = array(getenv("PW_HTTP_HOST"));
-
+if (getenv("PW_HTTP_HOST") !== false && getenv("PW_HTTP_HOST_ALT") !== false) {
+    $config->httpHosts = array(getenv("PW_HTTP_HOST"), getenv("PW_HTTP_HOST_ALT"));
+} else if (getenv("PW_HTTP_HOST") !== false) {
+    $config->httpHosts = array(getenv("PW_HTTP_HOST"));
+} else {
+    $config->httpHosts = array('localhost');
+}
 
 /**
  * Installer: Debug mode?
