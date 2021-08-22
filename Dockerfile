@@ -17,9 +17,11 @@ RUN sed -i "s|;listen.owner\s*=\s*nobody|listen.owner = ${PHP_FPM_USER}|g" /etc/
     sed -i "s|group\s*=\s*nobody|group = ${PHP_FPM_GROUP}|g" /etc/php7/php-fpm.d/www.conf
 
 # Step Two: Copy ProcessWire dependencies
-COPY index.php /www/index.php
-COPY htaccess.txt /www/.htaccess
-COPY wire /www/wire
+COPY ./index.php /www/index.php
+COPY ./htaccess.txt /www/.htaccess
+COPY ./wire /www/wire
+COPY ./site/config.php /www/site/config.php
+COPY ./site/htaccess.txt /www/site/.htaccess
 
 # Step Three: Copy start script and run
 COPY ./dockerstart.sh /dockerstart.sh
