@@ -1,7 +1,18 @@
 # Step One: Configure lightweight Alpine/Nginx/PHP container with proper permissions
 # Adapted from https://wiki.alpinelinux.org/wiki/Nginx_with_PHP
 FROM alpine
-RUN apk add nginx php7 php7-fpm php7-opcache
+RUN apk add \
+    nginx \
+    php7 \
+    php7-fpm \
+    php7-ctype \
+    php7-mbstring \
+    php7-pdo \
+    php7-pdo_mysql \
+    php7-gd \
+    php7-json \
+    php7-session \
+    php7-opcache
 COPY ./nginx.conf /etc/nginx/nginx.conf
 RUN adduser -D -g 'www' www && \
     mkdir /www && \
@@ -18,7 +29,6 @@ RUN sed -i "s|;listen.owner\s*=\s*nobody|listen.owner = ${PHP_FPM_USER}|g" /etc/
 
 # Step Two: Copy ProcessWire dependencies, set permissions
 COPY --chown=www:www ./index.php /www/index.php
-COPY --chown=www:www  ./htaccess.txt /www/.htaccess
 COPY --chown=www:www  ./wire /www/wire
 
 # Step Three: Copy start script and run
