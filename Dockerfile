@@ -20,8 +20,6 @@ RUN sed -i "s|;listen.owner\s*=\s*nobody|listen.owner = ${PHP_FPM_USER}|g" /etc/
 COPY --chown=www:www ./index.php /www/index.php
 COPY --chown=www:www  ./htaccess.txt /www/.htaccess
 COPY --chown=www:www  ./wire /www/wire
-COPY --chown=www:www  ./site/config.php /www/site/config.php
-COPY --chown=www:www  ./site/htaccess.txt /www/site/.htaccess
 
 # Step Three: Copy start script and run
 COPY ./dockerstart.sh /dockerstart.sh
