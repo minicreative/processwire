@@ -1,6 +1,6 @@
 # Step One: Configure lightweight Alpine/Nginx/PHP container with proper permissions
 # Adapted from https://wiki.alpinelinux.org/wiki/Nginx_with_PHP
-FROM alpine
+FROM alpine:3.15
 RUN apk add \
     nginx \
     php7 \
@@ -12,7 +12,8 @@ RUN apk add \
     php7-gd \
     php7-json \
     php7-session \
-    php7-opcache
+    php7-opcache \
+    php7-curl
 COPY ./nginx.conf /etc/nginx/nginx.conf
 RUN adduser -D -g 'www' www && \
     mkdir /www && \
